@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= page.title %> | <%= appName %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#005bbb">
+</head>
+<body>
+  <%- include('../partials/_header') %>
+
+  <main class="page-shell">
+    <section class="content-card">
+      <p class="eyebrow"><%= page.eyebrow %></p>
+      <h1><%= page.heading %></h1>
+      <p><%= page.intro %></p>
+      <a class="button button-primary" href="<%= page.homeHref %>"><%= page.button %></a>
+    </section>
+  </main>
+  <script src="/js/header.js"></script>
+</body>
+</html>

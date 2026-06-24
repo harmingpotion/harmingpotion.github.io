@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= page.title %> | <%= appName %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#333333">
+</head>
+<body>
+  <%- include('../partials/_header') %>
+
+  <main class="page-shell">
+    <div class="content-header">
+      <h1><%= page.heading %></h1>
+      <p><%= page.intro %></p>
+    </div>
+
+    <!-- Data Items List -->
+    <section aria-labelledby="overview-heading" class="content-card">
+      <h2 id="overview-heading"><%= page.overviewHeading %></h2>
+      <p><a href="<%= page.overviewHref %>"><%= page.overviewText %></a></p>
+    </section>
+
+    <section aria-labelledby="items-heading" class="content-card">
+      <h2 id="items-heading"><%= page.itemsHeading %></h2>
+      <p><a href="<%= page.itemsHref %>"><%= page.itemsText %></a></p>
+    </section>
+  </main>
+
+  <script src="/js/header.js"></script>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>
+
