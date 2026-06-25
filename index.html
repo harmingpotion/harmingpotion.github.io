@@ -1,95 +1,133 @@
+</body>
+</html>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Step Counter</title>
-    <script>
-        if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-            navigator.serviceWorker
-            .register("./serviceworker.js")
-            .then(() => console.log("Service Worker registered"))
-            .catch((err) => console.error("Service Worker failed:", err));
-        });
-        }
-    </script>
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Stappenteller</title>
+
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#4caf50">
+    <script src="app.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-            background: #f5f5f5;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: #f5f5f5;
+        }
+
+        header {
+        background: #4caf50;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        }
+
+        nav {
+        display: flex;
+        justify-content: space-around;
+        background: white;
+        padding: 10px;
+        }
+
+        nav button {
+        border: none;
+        background: none;
+        font-size: 16px;
+        cursor: pointer;
+        }
+
+        main {
+        padding: 20px;
+        max-width: 700px;
+        margin: auto;
         }
 
         .card {
-            background: white;
-            padding: 30px;
-            max-width: 400px;
-            margin: auto;
-            border-radius: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        background: white;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         #steps {
-            font-size: 48px;
-            margin: 20px 0;
+        font-size: 40px;
+        font-weight: bold;
         }
 
-        button {
-            padding: 12px 20px;
-            font-size: 16px;
-            margin: 5px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
+        button.action {
+        background: #4caf50;
+        color: white;
+        padding: 10px;
+        border: none;
+        margin-top: 10px;
+        border-radius: 8px;
+        cursor: pointer;
         }
 
-        .add {
-            background: #4caf50;
-            color: white;
+        @media (min-width: 768px) {
+        main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
         }
-
-        .reset {
-            background: #f44336;
-            color: white;
         }
     </style>
-</head>
-<body>
+    </head>
 
-<div class="card">
-    <h1>🚶 Step Counter</h1>
+    <body>
 
-    <div id="steps">0</div>
+    <header>
+    <h1 id="title">Stappenteller</h1>
+    </header>
 
-    <button class="add" onclick="addStep()">+1 Step</button>
-    <button class="reset" onclick="resetSteps()">Reset</button>
-</div>
+    <nav>
+    <button onclick="showPage('home')">Home</button>
+    <button onclick="showPage('overview')">Overview</button>
+    <button onclick="showPage('settings')">Settings</button>
+    </nav>
 
-<script>
-    let steps = parseInt(localStorage.getItem("steps")) || 0;
-    const stepDisplay = document.getElementById("steps");
+    <main>
 
-    function updateDisplay() {
-        stepDisplay.textContent = steps;
-        localStorage.setItem("steps", steps);
-    }
+    <!-- HOME -->
+    <section id="home">
+        <div class="card">
+        <h2>Today</h2>
+        <div id="steps">0</div>
+        <button class="action" onclick="addSteps(1000)">+1000 steps</button>
+        </div>
+    </section>
 
-    function addStep() {
-        steps++;
-        updateDisplay();
-    }
+    <!-- OVERVIEW -->
+    <section id="overview" style="display:none;">
+        <div class="card">
+        <h2>History</h2>
+        <div id="list"></div>
+        </div>
+    </section>
 
-    function resetSteps() {
-        steps = 0;
-        updateDisplay();
-    }
+    <!-- SETTINGS -->
+    <section id="settings" style="display:none;">
+        <div class="card">
+        <h2>Settings</h2>
 
-    updateDisplay();
-</script>
+        <button onclick="switchLang()">NL / EN</button>
+        <button onclick="resetAll()">Reset data</button>
+        </div>
+    </section>
 
-</body>
+    </main>
+        <script>
+            if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker
+                .register("./serviceworker.js")
+                .then(() => console.log("Service Worker registered"))
+                .catch((err) => console.error("Service Worker failed:", err));
+            });
+            }
+        </script>
+    </body>
 </html>
